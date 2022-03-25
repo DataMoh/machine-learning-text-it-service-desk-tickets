@@ -22,7 +22,7 @@ Automating the categorization and prioritization process of IT incidents and req
  - In this project variables focused on where "body", "category", "urgency", "impact"
  ## 3.1 Data Summary
  - JMP software was used to create distribution of the data to identify the frequencies between the classes.
- - Below we could see the data was highly unbalanced. Showing low distribution between certain classes for all variables.
+ - Below I could see the data was highly unbalanced. Showing low distribution between certain classes for all variables.
  
  ![image](https://user-images.githubusercontent.com/99374452/159406153-226c89b6-4b7a-4640-bdb1-b1b084929e2d.png)
  
@@ -46,7 +46,7 @@ Automating the categorization and prioritization process of IT incidents and req
  #### Oversampling / Under-sampling
  To balanced the data oversampling and under-sampling techniques.
 - ##### Oversampling
-  -  When oversampling, we simply create random duplicates of observations in the classes that have the lowest sample count.
+  -  When oversampling, I simply create random duplicates of observations in the classes that have the lowest sample count.
   -  This essentially fattens the data, creating more total observations to training our model.
   -  However, the major weakness in this model is that it is likely to cause overfitting.
   
@@ -64,6 +64,56 @@ Automating the categorization and prioritization process of IT incidents and req
   -  After under-sampling, the data shrunk to a total of 3060 observations.
 
 # 4. Modeling
+## 4.1 Multinomial Naive Bayes Classification Model
+#### Model Overview
+Classification algorithm which analyzes the probability of unique words to an outcome. It is based of Baye's theorem - "The probability of an event is based on prior knowledge  of conditions related to that event”
+ -  A simplified example:
+   - Email: ”Dinner Money Money”
+   - What is the probabilty of the above email being spam? 
+   - It is the product of the probabilities of the individual words relating to a spam email.
+   <img width="200" alt="image" src="https://user-images.githubusercontent.com/99374452/160127132-9af3c838-4f88-46e2-8697-7bef5ab80f4f.png">
+
+#### TFIDF - Text Frequency - Inverse Document Frequency
+ - To model the text data, I need to get the frequencies of words in each ticket, how often they appear in the whole dataset. 
+<img width="1391" alt="image" src="https://user-images.githubusercontent.com/99374452/160130078-1b3b6ffd-c757-43f3-a4ce-d3080f2b3296.png">
+
+ - I used the TFIDF Vectorizer to fromt the Sci-kit Learn package to perfrom this step.
+#### Hyperparameter Tuning
+
+- Applying a 5 fold validaton to reduce potential overfitting especially when oversampling the text data
+- I used GridSearchCV to identify the best hyper parameters for the model. 
+- The top five parameters combinations can be seen below:
+
+<img width="668" alt="image" src="https://user-images.githubusercontent.com/99374452/160131297-9a39dc28-fdc9-4434-b804-4bb67edb427f.png">
+
+- The best model required a combination of using just unigrams, no weighting of words using IDFs, using an alpha value of 1 to address the zero probability issue and using the same probabilties in the train fit. 
+
+#### Results
+- ##### Oversampling:
+<img width="1275" alt="image" src="https://user-images.githubusercontent.com/99374452/160199055-3fd84ec2-c62b-44a8-b765-bde6ae22913f.png">
+
+  - The model predicted well for classes 7 and 11, which was concerning because those were classes with the least amount of data and need to be oversampled the most. 
+  - It essentially meant the model predicted well for duplicate text.  
+  - Indicating bias and confidence in the accuracy should  be low.  
+  - The true accuracy of the model  would be < 55%
+    
+- ##### Undersampling:
+<img width="1274" alt="image" src="https://user-images.githubusercontent.com/99374452/160199497-de0c93bd-f59d-45a2-b279-2c8828818489.png">
+
+  - The undersample set perfromed much better than the oversample set.
+  - Intuitively,  made more sense as the undersample data set contain more raw data to work with although there was a limited amout of it. 
+  - This model was more reliable, because it predicted similarly between classes. 
+  - With overal  accuracy at 75% percent this was an overall better model
+
+## 4.2 Bert Classification Model
+#### Model Overview
+  - BERT is a natural language processing trained by Google that creates numerical vector respresentations of natural lanaguage to be used in modeling. After processing the text data a neural network can be fit to classify the data. 
+  - The size of the vector otherwise the hidden size is configurable. With the common size being 768. To reduce the computation demand of a 768 vector for each ticket a BERT hidden size of 128 was used in this project. 
+#### Results
+Understanding the inaccuracy of the oversampled data, the under-sampled data was only used for the BERT model. 
+
+<img width="1274" alt="image" src="https://user-images.githubusercontent.com/99374452/160199380-f4248f6b-5dcc-4244-bbc4-854aaaeb6e9a.png">
+
 # 5. Conclusions
 # 5. Code Highlights
 
