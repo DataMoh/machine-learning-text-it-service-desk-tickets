@@ -89,7 +89,7 @@ Classification algorithm which analyzes the probability of unique words to an ou
 - The best model required a combination of using just unigrams, no weighting of words using IDFs, using an alpha value of 1 to address the zero probability issue and using the same probabilties in the train fit. 
 
 #### Results
-- ##### Oversampling:
+##### Oversampling:
 <img width="1275" alt="image" src="https://user-images.githubusercontent.com/99374452/160199055-3fd84ec2-c62b-44a8-b765-bde6ae22913f.png">
 
   - The model predicted well for classes 7 and 11, which was concerning because those were classes with the least amount of data and need to be oversampled the most. 
@@ -97,7 +97,7 @@ Classification algorithm which analyzes the probability of unique words to an ou
   - Indicating bias and confidence in the accuracy should  be low.  
   - The true accuracy of the model  would be < 55%
     
-- ##### Undersampling:
+##### Undersampling:
 <img width="1274" alt="image" src="https://user-images.githubusercontent.com/99374452/160199497-de0c93bd-f59d-45a2-b279-2c8828818489.png">
 
   - The undersample set perfromed much better than the oversample set.
@@ -105,7 +105,7 @@ Classification algorithm which analyzes the probability of unique words to an ou
   - This model was more reliable, because it predicted similarly between classes. 
   - With overal  accuracy at 75% percent this was an overall better model
 
-## 4.2 Bert Classification Model
+## 4.2 BERT Classification Model
 #### Model Overview
   - BERT is a natural language processing trained by Google that creates numerical vector respresentations of natural lanaguage to be used in modeling. After processing the text data a neural network can be fit to classify the data. 
   - The size of the vector otherwise the hidden size is configurable. With the common size being 768. To reduce the computation demand of a 768 vector for each ticket a BERT hidden size of 128 was used in this project. 
@@ -114,9 +114,21 @@ Understanding the inaccuracy of the oversampled data, the under-sampled data was
 
 <img width="1274" alt="image" src="https://user-images.githubusercontent.com/99374452/160199380-f4248f6b-5dcc-4244-bbc4-854aaaeb6e9a.png">
 
-# 5. Conclusions
-# 5. Code Highlights
+<img width="596" alt="image" src="https://user-images.githubusercontent.com/99374452/160200900-203c4673-a43b-4bc2-a3a5-7b2538ea9f83.png">
 
+- The BERT Model provided fair predictions with little overfitting 
+- I could see that after 30 epochs the model accuracy became stagnant. The performance gains after each iteration was minimal 
+- The stagnancy could be attributed to the low volume of data used in the undersample set. With only about 2450 observations of the 3040 observations used to train the model. 
+# 5. Conclusions
+Selecting the under-sampled Multinomial NB model as the preferred model, we could validate text analysis as a tool to accuratly predict attributes in Text data. The ability to classify IT tickets using text inputs presents an opportunity to build a tool that can automate the ticket triaging process. Such a tool could be a suggestion tool to assist the an in expereince service agent, providing the top categories related a each ticket received in a queue.
+# 5. Code Highlights
+- Preprocessing 
+- Oversampling & Undersampling
+- Multinomial NB
+- Hyperparameter Tuning
+- BERT Classifer
+- Results
+- 
 - text analysis Advanced analytics package was used to 
 
   -  
