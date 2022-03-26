@@ -121,18 +121,6 @@ Understanding the inaccuracy of the oversampled data, the under-sampled data was
 - The stagnancy could be attributed to the low volume of data used in the undersample set. With only about 2450 observations of the 3040 observations used to train the model. 
 # 5. Conclusions
 Selecting the under-sampled Multinomial NB model as the preferred model, we could validate text analysis as a tool to accuratly predict attributes in Text data. The ability to classify IT tickets using text inputs presents an opportunity to build a tool that can automate the ticket triaging process. Such a tool could be a suggestion tool to assist the an in expereince service agent, providing the top categories related a each ticket received in a queue.
-# 5. Code Highlights
-- Preprocessing 
-- Oversampling & Undersampling
-- Multinomial NB
-- Hyperparameter Tuning
-- BERT Classifer
-- Results
-- 
-- text analysis Advanced analytics package was used to 
-
-  -  
-
 
 
 
